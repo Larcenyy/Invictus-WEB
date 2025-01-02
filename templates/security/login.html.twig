@@ -65,13 +65,13 @@
                 <h1>Inscriptions</h1>
                 <small><span id="gotoLogin">Je suis déjà inscrit</span></small>
                 <div id="content">
-                    <input type="text" id="username-first-login" placeholder="Nom d'utilisateur (va servir pour vous connectez sur MTA)">
-                    <input type="email" id="username-first-login" placeholder="Email à vérifier">
+                    <input type="text" name='register-username' id="username-first-login" placeholder="Nom d'utilisateur (va servir pour vous connectez sur MTA)">
+                    <input type="email" name='register-email' id="username-first-login" placeholder="Email à vérifier">
                     <div id="content-password">
-                        <input type="register" id="password-first-login" placeholder="Mot de passe">
+                        <input name="register-password" type="password" id="password-first-login" placeholder="Mot de passe">
                         <img class="eye" class="eye-img" src="{{ asset('build/images/icons/eye.svg') }}" alt="image-eye">
                     </div>
-                    <input type="text" id="code-first-login" placeholder="Discord ID (Nécessaire pour la suite)">
+                    <input name="register-discord" type="text" id="code-first-login" placeholder="Discord ID (Nécessaire pour la suite)">
                 </div>
                 <button id="btnRegister" type="submit">Valider mon inscriptions</button>
             </form>

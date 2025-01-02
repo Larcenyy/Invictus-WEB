@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`accounts`')]
@@ -30,11 +31,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private ?string $password = null;    
+    
+    #[ORM\Column]
+    private ?string $ip = null;
+
+    #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    private bool $is_verified = false;
+
+    #[ORM\Column(type: "integer")]
+    private int $number_account_ip = 1; // Par défaut, 1 compte autorisé par IP
+
+    public function getNumberAccountIp(): int
+    {
+        return $this->number_account_ip;
+    }
+
+    public function setNumberAccountIp(int $numberAccountIp): static
+    {
+        $this->number_account_ip = $numberAccountIp;
+
+        return $this;
+    }
 
     public function __construct()
     {
         $this->roles = [];
+        $this->is_verified = false;
     }
 
     public function getId(): ?int
