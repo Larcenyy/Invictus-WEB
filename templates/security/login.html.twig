@@ -1,41 +1,100 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Se connecter{% endblock %}
 
 {% block body %}
-    <form method="post">
+<div class="container">
+    {% if app.user %}
+        <div>
+            <span>Danger</span>
+            <div>
+                <span>Attention, une erreur est survenu !</span>
+                <p>Vous êtes déjà connecté sous l'identifiant : <span>{{ app.user.userIdentifier }}</span></p>
+                <ul class="mt-4 list-disc list-inside">
+                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                    <li><a href="{{ path('app_home') }}">Revenir à l'accueil</a></li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            <div class="alert">
+                <div class="alert-container">
+                    <div class="alert-spinner alert-spinner-danger">
+                        <div class="spinner-circle spinner-circle-danger"></div>
+                
+                        <img id="icons" class="icons-danger" src="/build/images/icons/danger.svg" alt="image-danger">
+                    </div>
+                    <div id="alert-content">
+                        <p><strong>Erreur</strong></p>
+                        <small>Identifiant invalide.</small>
+                    </div>
+                </div>
             </div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
+        <div class="left">
+            <div>
+                <div class="btn-container-slider">
+                    <button class="bg-1"></button>
+                    <button class="bg-2"></button>
+                    <button class="bg-3"></button>
+                </div>
+                <img class="picture" src="{{ asset('build/images/background/bg-1.png') }}" alt="image-bg">
             </div>
-        #}
+        </div>
+        <div class="right">
+            <form id="loginForm" class="" method="post">
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+                <h1>Connexion au compte</h1>
+                <small id="isFirst">C'est votre première fois ? <span id="gotoFirstLogin">S'inscrire!</span></small>
+                <div id="content">
+                    <input name="_username" type="email" id="username" autocomplete="email" required autofocus placeholder="votre@email.fr">
+                    <div id="content-password">
+                        <input name="_password" type="password" id="password" autocomplete="current-password" required placeholder="***********">
+                        <img class="eye" class="eye-img" src={{ asset('build/images/icons/eye.svg') }} alt="image-eye">
+                    </div>
+                </div>
+                <button id="btnLogin" type="submit">Se connecter</button>
+            </form>
+            
+            <form id="firstLogin" class="hidden">
+                <h1>Inscriptions</h1>
+                <small><span id="gotoLogin">Je suis déjà inscrit</span></small>
+                <div id="content">
+                    <input type="text" id="username-first-login" placeholder="Nom d'utilisateur (va servir pour vous connectez sur MTA)">
+                    <input type="email" id="username-first-login" placeholder="Email à vérifier">
+                    <div id="content-password">
+                        <input type="register" id="password-first-login" placeholder="Mot de passe">
+                        <img class="eye" class="eye-img" src="{{ asset('build/images/icons/eye.svg') }}" alt="image-eye">
+                    </div>
+                    <input type="text" id="code-first-login" placeholder="Discord ID (Nécessaire pour la suite)">
+                </div>
+                <button id="btnRegister" type="submit">Valider mon inscriptions</button>
+            </form>
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+            <div id="separate">
+                <hr>
+                <hr>
+            </div>
+            <ul>
+                <li>
+                    <a href="">
+                        <img src="{{ asset('build/images/icons/discord.svg') }}" alt="image-social">
+                        Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="{{ asset('build/images/icons/discord.svg') }}" alt="image">
+                        Discord
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

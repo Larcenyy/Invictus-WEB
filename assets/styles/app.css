@@ -1,3 +1,418 @@
-body {
-    background-color: skyblue;
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    border-radius: 10px;
 }
+
+body{
+    overflow: hidden;
+    background-color: #111419;
+    width: 100%;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden{
+    display: none;
+}
+
+#gotoFirstLogin, #gotoLogin{
+    transition: 300ms ease-in-out;
+}
+
+#gotoFirstLogin:hover, #gotoLogin:hover{
+    color: #111419;
+    text-decoration: none;
+    background-color: white;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #1e2228;
+    width: 50%;
+    height: 60%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+/* CONTAINER GAUCHE */
+
+.container .left{
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    user-select: none;
+}
+
+.container .left div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-container-slider{
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-container-slider button{
+    z-index: 2;
+    background: #ffffff;
+    opacity: 0.5;
+    transition: 0.3s ease;
+    margin-bottom: 1.5rem;    
+    height: 5px;
+    width: 60px;
+    border: transparent;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+.btn-container-slider button:nth-child(1){
+    background: #ffffff;
+    opacity: 1;
+    width: 80px;
+}
+
+.btn-container-slider button:hover{
+    opacity: 1;
+}
+
+
+.container .left div .picture{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.3s ease;
+}
+
+.container .left::before {
+    content: "Découvrez nos actualités"; /* Exemple de texte, ajustez-le */
+    position: absolute;
+    color: #ffffff;
+    font-size: 17px;
+    text-align: center;
+    z-index: 10;
+    width: 100%;
+    bottom: 3rem;
+}
+
+/* CONTAINER RIGHT */
+.container .right{
+    height: 100%;
+    width: 70%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.right h1{
+    color: white;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+
+.right div{
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.right small{
+    color: rgba(255, 255, 255, 0.521);
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 1rem;
+}
+
+small span{
+    color: #3e4145;
+    font-size: 14px;
+    font-weight: 200;
+    margin-right: 0.5rem;
+    text-decoration: underline;
+}
+
+form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+/* Style de base des inputs */
+form input {
+    padding: 0.5rem;
+    width: 100%;
+    border: none;
+    background-color: #3e4145;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: white; /* Couleur du texte */
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    font-size: 14px;
+    outline: none; /* Supprime le contour par défaut */
+    transition: all 0.3s ease; /* Ajoute une animation fluide */
+    border: 1px solid #3e4145!important;
+    padding: 12px 12px;
+}
+
+/* Placeholder lorsqu'il n'est pas en focus */
+form input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Couleur douce pour le placeholder */
+}
+
+/* Modifier la couleur du placeholder au survol */
+form input:hover::placeholder {
+    color: rgba(255, 255, 255, 0.342); /* Placeholder rouge au hover */
+}
+
+form input:focus {
+    background-color: #2c2f33; 
+}
+
+/* Placeholder lorsqu'il est en focus */
+form input:focus::placeholder {
+    color: rgb(255, 255, 255); /* Placeholder rouge doux en focus */
+}
+
+form input:focus{
+    border: 1px solid #b6b6b6!important;
+}
+
+form button{
+    width: 100%;
+    background-color: #111419;
+    color: white;
+    padding: 12px 12px;
+    border: none;
+    border-radius: 3px!important;
+    cursor: pointer;
+    transition:300ms ease-in-out
+}
+
+form button:hover{
+    background-color: #3e4145;
+}
+
+
+
+
+#content{
+    display: flex;
+    flex-direction: column;
+}
+
+#content-password{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.eye{
+    position: absolute;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    bottom: 0;
+    transform: translateY(70%);
+    top: 0;
+    opacity: 0.2;
+    margin-right: 10px;
+    transition: 300ms ease-in;
+}
+
+.eye:hover{
+    opacity: 1;
+}
+
+.right #separate hr{
+    height: 1px;
+    border: solid 1px #111419;
+    width: 100%;
+    background-color: none;
+    margin-bottom: 1rem;
+}
+
+ul{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    list-style: none;
+    justify-content: center;
+    width: 100%;
+}
+
+ul li{
+    width: 50%;
+}
+
+ul li a {
+    padding: 8px 12px;
+    color: white;
+    text-decoration: none;
+    border: 2px solid #3e4145;
+    border-radius: 6px!important;
+    background-color: transparent; /* Couleur du cercle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Animation au survol */
+}
+
+/* Icônes */
+ul li a img {
+    width: 25px;
+    height: 25px;
+    display: block;
+    transition: transform 0.3s ease; /* Animation au survol */
+}
+
+ul li a:hover {
+    background-color: #111419; /* Change la couleur du cercle (exemple pour Discord) */
+    transform: scale(1.1); /* Agrandit légèrement le cercle */
+}
+
+ul li a:hover img {
+    transform: scale(1.2); /* Agrandit légèrement l'icône */
+}
+
+
+
+/* --------- SYSTEM DE POPÜP ALERT */
+.alert {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 1rem;
+    color: #ffffff;
+    width: 20%;
+    border-radius: 6px;
+    background-color: #1e2228;
+
+    transition: 300ms ease-in-out;
+}
+
+.alert-container{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.alert .alert-spinner{
+    height: max-content;
+    position: relative;
+    border-radius: 50%;
+}
+
+.alert-spinner-success{
+    background-color: #278f214f;   
+}
+
+.alert-spinner-danger{
+    background-color: #8f232155;  
+}
+
+.spinner-circle {
+    z-index: 20;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 6px),#000 0);
+    animation: spinner-zp9dbg 3s infinite linear;
+}
+
+.spinner-circle-success{
+    background: conic-gradient(#0000 10%, #278f21dd);
+}
+
+.spinner-circle-danger{
+    background: conic-gradient(#0000 10%, #8f2321d9);
+}
+ 
+.alert #icons{
+    margin-top: 2px;
+    z-index: 30;
+    position: absolute;
+    top: 0;
+}
+
+.icons-success{
+    width: 20px;
+    height: auto;
+    left: 23%;
+    transform: translateY(35%);
+}
+
+.icons-danger{
+    width: 16px;
+    height: 16px;
+    left: 30%;
+    transform: translateY(50%);
+}
+
+
+.alert #alert-content{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.alert p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.alert small{
+    font-weight: 400;
+    font-size: 14px;
+    font-style: normal;
+}
+
+@keyframes spinner-zp9dbg {
+    to{
+        transform: rotate(1turn);
+    }
+
+}
+
+@keyframes alert-fade {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(200%);
+    }
+}
+
+ /* ANIMATION CSS */
+ .animation-fade{
+    animation: alert-fade 2s ease-in-out normal
+}
+/* ---------------------------------------------------- FIN ALERT/ */
