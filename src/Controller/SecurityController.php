@@ -2,41 +2,31 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\RegisterUserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: "/login", name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ]);
-    }
-
-    #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
-    {
-        // Déconnction de l'utilisateur
-    }
-
     /**
      * @param UserPasswordHasherInterface $passwordHasher
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/register', name: 'app_register')]
-    public function register(UserPasswordHasherInterface $passwordHasher, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route(path: "/login", name: 'app_login')]
+    public function login(AuthenticationUtils $authenticationUtils, UserPasswordHasherInterface $passwordHasher, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $registerForm = $this->createForm(UserRegisterType::class);
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        $registerForm = $this->createForm(RegisterUserType::class);
         $registerForm->handleRequest($request);
 
         if ($registerForm->isSubmitted() && $registerForm->isValid()) {
@@ -48,7 +38,7 @@ class SecurityController extends AbstractController
 
             if (count($existingAccounts) > 0) {
                 $allowedAccounts = $existingAccounts[0]->getNumberAccountIp();
-    
+
                 if (count($existingAccounts) >= $allowedAccounts) {
                     $this->addFlash('danger', "Vous ne pouvez pas créer plus de $allowedAccounts comptes avec cette adresse IP !");
                     return $this->redirectToRoute("app_register");
@@ -57,12 +47,12 @@ class SecurityController extends AbstractController
 
             $existingUser = $entityManager->getRepository(User::class)->findOneBy([
                 'email' => $data['register-email']
-            ]);                 
-            
+            ]);
+
             $existingName= $entityManager->getRepository(User::class)->findOneBy([
                 'username' => $data['register-username']
-            ]);            
-            
+            ]);
+
             $existingDiscord = $entityManager->getRepository(User::class)->findOneBy([
                 'discord_name' => $data['register-discord']
             ]);
@@ -90,10 +80,16 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-
-
-        return $this->render('security/register.html.twig', [
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
             'registerForm' => $registerForm,
         ]);
+    }
+
+    #[Route(path: '/logout', name: 'app_logout')]
+    public function logout(): void
+    {
+        // Déconnction de l'utilisateur
     }
 }

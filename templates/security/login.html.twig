@@ -62,18 +62,27 @@
             </form>
             
             <form id="firstLogin" class="hidden">
-                <h1>Inscriptions</h1>
-                <small><span id="gotoLogin">Je suis déjà inscrit</span></small>
-                <div id="content">
-                    <input type="text" name='register-username' id="username-first-login" placeholder="Nom d'utilisateur (va servir pour vous connectez sur MTA)">
-                    <input type="email" name='register-email' id="username-first-login" placeholder="Email à vérifier">
-                    <div id="content-password">
-                        <input name="register-password" type="password" id="password-first-login" placeholder="Mot de passe">
-                        <img class="eye" class="eye-img" src="{{ asset('build/images/icons/eye.svg') }}" alt="image-eye">
+                {% if not app.user %}
+                    <h1>Inscriptions</h1>
+                    <small>Vous avez déjà un compte ? <span id="gotoLogin">Se connecter</span></small>
+                    {{ form_start(registerForm) }}
+                    <div id="content">
+                        {{ form_row(registerForm.registerUsername) }}
+                        {{ form_row(registerForm.registerEmail) }}
+                        <div id="content-password">
+                            {{ form_row(registerForm.registerPassword.first) }}
+                            {{ form_row(registerForm.registerPassword.second) }}
+{#                            <img class="eye" class="eye-img" src="{{ asset('build/images/icons/eye.svg') }}" alt="image-eye">#}
+                        </div>
                     </div>
-                    <input name="register-discord" type="text" id="code-first-login" placeholder="Discord ID (Nécessaire pour la suite)">
-                </div>
-                <button id="btnRegister" type="submit">Valider mon inscriptions</button>
+                    {{ form_end(registerForm) }}
+                {% else %}
+                    <p><span>Attention !</span>, vous êtes déjà connectez et vous invitons à vous redirigez depuis ces boutons</p>
+                    <div>
+                        <a href="{{ path('app_home') }}">Retournez à l'accueil</a>
+                        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </div>
+                {% endif %}
             </form>
 
             <div id="separate">

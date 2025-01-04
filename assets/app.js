@@ -16,7 +16,7 @@ const inputUsernameFirstLogin = document.getElementById("username-first-login");
 const inputCodeFirstLogin= document.getElementById("code-first-login");
 
 const btnLogin = document.getElementById("btnLogin");
-const btnRegister = document.getElementById("btnRegister");
+const btnRegister = document.getElementById("register_user_submit");
 
 const btnGoToFirstLogin = document.getElementById("gotoFirstLogin");
 const btnGoToLogin = document.getElementById("gotoLogin");
@@ -110,13 +110,11 @@ btnLogin.addEventListener("click", (e) => {
     const password = inputPassword.value.trim();
 
     if(username === "") {
-        sendClientErrorMessage("Veuillez entrer votre nom d'utilisateur", "error");
-        return;
+        return sendClientErrorMessage("Veuillez entrer votre nom d'utilisateur", "error");
     }
 
     if(password === "") {
-        sendClientErrorMessage("Veuillez entrer votre mot de passe", "error");
-        return;
+        return sendClientErrorMessage("Veuillez entrer votre mot de passe", "error");
     }
 });
 
@@ -189,9 +187,9 @@ function sendClientErrorMessage(message, messageType) {
 
     let type = "";
 
-    if(messageType == 'error') {
+    if(messageType === 'error') {
         type = "danger";
-    } else if(messageType == 'success') {
+    } else if(messageType === 'success') {
         type = "success";
     }
 
@@ -205,7 +203,7 @@ function sendClientErrorMessage(message, messageType) {
                     <img id="icons" class="icons-${type}" src="/build/images/icons/${type}.svg" alt="image-danger">
                 </div>
                 <div id="alert-content">
-                    <p><strong>${type == "danger" ? "Erreur" : "Succès"}</strong></p>
+                    <p><strong>${type === "danger" ? "Erreur" : "Succès"}</strong></p>
                     <small>${message}</small>
                 </div>
             </div>

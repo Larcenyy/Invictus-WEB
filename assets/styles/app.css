@@ -39,8 +39,8 @@ body{
     align-items: center;
     background-color: #1e2228;
     width: 50%;
-    height: 60%;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    height: 65%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 30px 60px -12px, rgba(0, 0, 0, 0.3) 0 18px 36px -18px;
     padding: 1rem;
     gap: 2rem;
 }
@@ -52,7 +52,7 @@ body{
     width: 50%;
     overflow: hidden;
     position: relative;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 30px 60px -12px, rgba(0, 0, 0, 0.3) 0 18px 36px -18px;
     user-select: none;
 }
 
@@ -163,13 +163,9 @@ form{
 
 /* Style de base des inputs */
 form input {
-    padding: 0.5rem;
     width: 100%;
-    border: none;
     background-color: #3e4145;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     color: white; /* Couleur du texte */
-    font-size: 1rem;
     margin-bottom: 1rem;
     border-radius: 3px;
     font-size: 14px;
@@ -252,7 +248,7 @@ form button:hover{
     height: 1px;
     border: solid 1px #111419;
     width: 100%;
-    background-color: none;
+    background-color: transparent;
     margin-bottom: 1rem;
 }
 
